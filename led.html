@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UniLab 3D – LED volt-amper xarakteristikasi</title>
+<style>
+
+    .lab-label {
+    position: absolute;
+    background: rgba(11, 27, 51, 0.85);
+    border: 1px solid #38b6ff;
+    color: #e6f0ff;
+    padding: 4px 8px;
+    font-size: 11px;
+    border-radius: 6px;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transform: translate(-50%, -100%);
+    display: none; /* Kadrda ko'ringanda ochiladi */
+    z-index: 10;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#06101f;color:#e6f0ff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{display:flex;align-items:center;gap:16px;padding:12px 20px;border-bottom:1px solid #16345c;flex-wrap:wrap}
+.logo{font-size:22px;font-weight:700;color:#38b6ff}.logo b{color:#fff}
+header h1{font-size:18px;margin:0;flex:1;min-width:200px;color:#ffc857}
+main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;padding:14px}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+.card{background:#0b1b33;border:1px solid #17406e;border-radius:12px;padding:14px}
+h2{font-size:16px;margin:0 0 10px}
+#view{position:relative;height:460px;padding:0;overflow:hidden}
+canvas#c3{width:100%;height:100%;display:block;cursor:grab}
+#hint{position:absolute;left:12px;top:10px;font-size:12px;background:#0008;padding:6px 10px;border-radius:8px;line-height:1.5}
+#led{position:absolute;right:14px;top:14px;width:190px;background:rgba(11,27,51,0.9);border:1px solid #17406e;border-radius:10px;padding:12px;font-size:13px}
+.bar{height:8px;border-radius:4px;background:#1b3558;margin:6px 0 2px;overflow:hidden}.bar i{display:block;height:100%;background:#ff3b4e;width:0}
+label{display:block;font-size:14px;margin:12px 0 6px;font-weight:600}
+input[type=range]{width:100%}
+select,button{background:#0e2748;color:#e6f0ff;border:1px solid #2a6fb5;border-radius:8px;padding:8px 10px;font-size:14px;width:100%}
+button{cursor:pointer;width:auto}button:hover{background:#15407a}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.big{font-size:20px;font-weight:700;color:#38b6ff}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{border:1px solid #17406e;padding:4px;text-align:center}
+.scroll{max-height:200px;overflow:auto}
+canvas#ch{width:100%;height:240px;display:block}
+.info{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;font-size:13px}
+.info div{background:#0e2748;border-radius:8px;padding:8px}.info b{display:block;font-size:16px}
+ol{padding-left:20px;margin:0;font-size:14px;line-height:1.7}
+.green{background:#0a7a4a;border-color:#12b36f}.blue{background:#0a5bd6;border-color:#38b6ff}
+#csvbox{display:none;margin-top:8px}#csvbox textarea{width:100%;height:120px;background:#06101f;color:#cfe;border:1px solid #2a6fb5;border-radius:8px}
+#concl{display:none;margin-top:8px;font-size:14px;line-height:1.5;background:#0a7a4a33;border-radius:8px;padding:10px}
+footer{padding:4px 20px 20px;font-size:12px;color:#7fb0e8}
+.left{display:flex;flex-direction:column;gap:14px;min-width:0}.right{display:flex;flex-direction:column;gap:14px;min-width:0}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">Uni<b>Lab</b> 3D</div>
+<h1>Yorugʻlik diodining volt-amper xarakteristikasini aniqlash</h1>
+</header>
+<main>
+<div class="left">
+<div class="card" id="view">
+    <canvas id="c3"></canvas>
+    <!-- 3D Obyektlar uchun yorliqlar (Strelkali nomlar) -->
+    <div class="lab-label" id="tag-psu">Tok manbai ↙</div>
+    <div class="lab-label" id="tag-res">Rezistor ↙</div>
+    <div class="lab-label" id="tag-led">LED diod ↗</div>
+    
+    <div id="hint">...</div>
+    <div id="led">...</div>
+</div>
+<div id="hint">Sichqoncha: aylantirish (bosib torting) · Gʻildirak: yaqinlashtirish</div>
+<div id="led"><div id="ledName">LED (qizil)</div><div id="ledVf">U<sub>f</sub> ≈ 1.8 V</div>
+<div style="margin-top:8px">Yorqinlik</div><div class="bar"><i id="brBar"></i></div><div id="brTxt" style="text-align:right">0%</div></div>
+</div>
+<div class="card">
+<h2>Tajribadagi maʼlumotlar</h2>
+<div class="info">
+<div>Kuchlanish<b id="iV">0.0 V</b></div><div>Tok kuchi<b id="iA">0.0 mA</b></div>
+<div>Yorqinlik<b id="iB">0%</b></div><div>Rezistor<b id="iR">220 Ω</b></div>
+
+Bekmurod:
+<div>Diod modeli<b id="iD">Qizil LED</b></div><div>Holat<b id="iS">Oldinga ulanish</b></div>
+</div>
+</div>
+<div class="card">
+<h2>Tajriba tartibi</h2>
+<ol>
+<li>Kuchlanishni 0–5 V oraligʻida oʻzgartiring.</li>
+<li>Rezistor qarshiligini tanlang.</li>
+<li>LED diod modelini tanlang.</li>
+<li>“Nuqta qoʻshish” yoki “Avto-skan” bilan jadvalni toʻldiring.</li>
+<li>“Grafikni tozalash” bilan grafikni yangilang.</li>
+<li>Soʻngra natijalarni CSV koʻrinishida oling.</li>
+</ol>
+<div class="row"><button class="blue" id="bCsv">CSV olish</button><button class="green" id="bConcl">Xulosa</button></div>
+<div id="csvbox"><textarea id="csvta" readonly></textarea><button id="bCopy">Nusxalash</button></div>
+<div id="concl"></div>
+</div>
+</div>
+<div class="right">
+<div class="card">
+<h2>Boshqaruv</h2>
+<label>Kuchlanish (V): <span class="big" id="vOut">2.0</span></label>
+<input type="range" id="volt" min="0" max="5" step="0.1" value="2.0">
+<label>Rezistor (Ω)</label>
+<select id="res"><option>100</option><option selected>220</option><option>330</option><option>470</option><option>1000</option></select>
+<label>Diod modeli</label>
+<select id="dio">
+<option value="red">Qizil LED (≈ 1.8 V)</option><option value="green">Yashil LED (≈ 2.1 V)</option>
+<option value="blue">Koʻk LED (≈ 3.0 V)</option><option value="white">Oq LED (≈ 3.1 V)</option>
+<option value="si">Kremniy diod (≈ 0.7 V)</option>
+</select>
+<div class="row"><button id="bAdd">Nuqta qoʻshish</button><button id="bScan">Avto-skan</button></div>
+</div>
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0">Oʻlchov natijalari</h2><button id="bClr">Grafikni tozalash</button></div>
+<div class="scroll" style="margin-top:10px"><table><thead><tr><th>№</th><th>Kuchlanish (V)</th><th>Tok (mA)</th></tr></thead><tbody id="tb"></tbody></table></div>
+</div>
+<div class="card"><h2>Volt-amper xarakteristikasi</h2><canvas id="ch" width="600" height="300"></canvas></div>
+</div>
+</main>
+<footer>Diqqat: Bu simulyatsiya oʻquv maqsadlarida yaratilgan. Haqiqiy laboratoriya oʻlchovlari bilan farq qilishi mumkin.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="unilab3d.js"></script>
+</body>
+</html>

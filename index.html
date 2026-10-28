@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniLab 3D | Virtual laboratoriya</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="index.html"><span class="brand-icon">⬡</span><span>UniLab <b>3D</b><small>VIRTUAL LAB SYSTEM</small></span></a>
+      <div class="side-label">ASOSIY MENYU</div>
+      <a class="nav-link active" href="index.html">⌂ <span>Bosh sahifa</span></a>
+     
+      <a class="nav-link" href="fan.html?fan=physics">⚡ <span>Fizika laboratoriyasi</span></a>
+      <a class="nav-link" href="led.html">💡 <span>LED volt-amper xarakteristikasi</span></a>
+      <a class="nav-link" href="fan.html?fan=modeling">◇ <span>3D modellashtirish</span></a>
+      <a class="nav-link" href="fan.html?fan=programming">⌘ <span>Dasturlash</span></a>
+      <div class="sidebar-status"><span class="status-dot"></span> SIMULYATSIYA TIZIMI FAOL <small>UniLab Engine · v1.2</small></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar"><div class="crumb">BOSHQARUV PANELI <span>/</span> BOSH SAHIFA</div><div class="top-right"><span class="online"><i></i> TIZIM ONLAYN</span><span class="avatar">U</span></div></header>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="pulse"></span> YANGI AVLOD VIRTUAL TA'LIMI</div>
+          <h1>G‘oyalarni <span>3D olamda</span><br>sinab ko‘ring.</h1>
+          <p>Virtual laboratoriyaga kiring, modellarni o‘rganing va tajribalarni xavfsiz raqamli muhitda bajaring.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="experiment.html">⚡ Laboratoriyani ochish <span>↗</span></a><a class="btn btn-ghost" href="#modules">Modullarni ko‘rish</a></div>
+          <div class="hero-metrics"><div><b>03</b><small>O‘QUV MODULI</small></div><div><b>3D</b><small>INTERAKTIV MUHIT</small></div><div><b>24/7</b><small>DOIMIY KIRISH</small></div></div>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-ring ring-one"></div><div class="visual-ring ring-two"></div>
+          <div class="visual-label label-top">LIVE SIMULATION <span>●</span></div>
+          <div id="hero3d" aria-label="Aylanadigan 3D obyekt"></div>
+          <div class="visual-label label-bottom"><span class="mini-square"></span> HOLOGRAPHIC CORE <b>v.01</b></div>
+          <div class="floating-chip chip-a">◈ <span>3D ENGINE<br><b>ACTIVE</b></span></div>
+          <div class="floating-chip chip-b">⚡ <span>PHYSICS<br><b>READY</b></span></div>
+        </div>
+      </section>
+
+      <section class="section-heading" id="modules"><div><div class="eyebrow">O‘RGANISH MAYDONI</div><h2>Virtual modullar</h2></div><span class="muted">MODUL TANLANG <b>↘</b></span></section>
+      <section class="module-grid">
+        <a class="module-card card-cyan" href="experiment.html"><div class="card-icon">ϟ</div><div class="card-tag">PHYSICS / 01</div><h3>Elektr zanjiri</h3><p>Kuchlanish, qarshilik va tok kuchini virtual tekshiring.</p><div class="card-foot">TAJRIBANI BOSHLASH <span>↗</span></div><div class="card-orb"></div></a>
+         
+        <a class="module-card card-purple" href="fan.html?fan=modeling"><div class="card-icon">◇</div><div class="card-tag">3D DESIGN / 02</div><h3>3D modellashtirish</h3><p>Uch o‘lchamli shakllarni ko‘ring va aylantiring.</p><div class="card-foot">MODELLARNI KO‘RISH <span>↗</span></div><div class="card-orb"></div></a>
+        <a class="module-card card-green" href="fan.html?fan=programming"><div class="card-icon">{ }</div><div class="card-tag">CODE LAB / 03</div><h3>Dasturlash</h3><p>Algoritmik fikrlash va kodlash mashqlariga kirish.</p><div class="card-foot">MODULNI OCHISH <span>↗</span></div><div class="card-orb"></div></a>
+      </section>
+      <footer class="footer"><span>© 2026 UNILAB 3D</span><span>BU SIMULYATSIYA O‘QUV MAQSADLARIDA YARATILGAN</span><span class="footer-live">● SYSTEM READY</span></footer>
+    </main>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

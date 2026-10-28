@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniLab 3D | Modullar</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar"><a class="brand" href="index.html"><span class="brand-icon">⬡</span><span>UniLab <b>3D</b><small>VIRTUAL LAB SYSTEM</small></span></a><div class="side-label">ASOSIY MENYU</div><a class="nav-link" href="index.html">⌂ <span>Bosh sahifa</span></a><a class="nav-link" href="experiment.html">⚡ <span>Elektr laboratoriya</span></a><a class="nav-link active" href="fan.html?fan=modeling">◇ <span>Modullar</span></a><div class="sidebar-status"><span class="status-dot"></span> TIZIM ONLAYN<small>UniLab Engine · v1.2</small></div></aside>
+    <main class="main-area"><header class="topbar"><div class="crumb"><a href="index.html">BOSH SAHIFA</a> <span>/</span> MODULLAR</div><div class="top-right"><span class="online"><i></i> TIZIM ONLAYN</span></div></header>
+      <section class="page-intro"><div class="eyebrow">LEARNING MODULES</div><h1 id="moduleTitle">3D <span>modellashtirish</span></h1><p id="moduleDescription">Uch o‘lchamli modellarni o‘rganing va interaktiv sahnada sinab ko‘ring.</p></section>
+      <section class="module-grid module-grid-wide">
+        <a class="module-card card-cyan" href="experiment.html"><div class="card-icon">ϟ</div><div class="card-tag">PHYSICS / 01</div><h3>Om qonuni</h3><p>Kuchlanish, qarshilik va tok kuchi o‘rtasidagi bog‘lanish.</p><div class="card-foot">LABORATORIYANI OCHISH <span>↗</span></div><div class="card-orb"></div></a>
+        <div class="module-card card-purple"><div class="card-icon">⬡</div><div class="card-tag">3D OBJECT / 02</div><h3>Geometrik yadro</h3><p>Aylanadigan 3D shakl. Uni sichqoncha yoki barmoq bilan boshqaring.</p><div id="modelPreview" class="model-preview"></div><div class="card-foot">3D MODEL <span>● ACTIVE</span></div><div class="card-orb"></div></div>
+        <div class="module-card card-green"><div class="card-icon">{ }</div><div class="card-tag">CODE LAB / 03</div><h3>Algoritm laboratoriyasi</h3><p>Keyingi bosqichda algoritm va dasturlash simulyatsiyalarini shu modulga qo‘shish mumkin.</p><div class="card-foot">MODUL TAYYORLANMOQDA <span>↗</span></div><div class="card-orb"></div></div>
+      </section>
+      <footer class="footer"><span>© 2026 UNILAB 3D</span><span>INTERAKTIV RAQAMLI MUHIT</span><a href="index.html">← BOSH SAHIFA</a></footer>
+    </main>
+  </div><script type="module" src="main.js"></script><script>
+    const f = new URLSearchParams(location.search).get('fan');
+    const titles = {physics:['Fizika','Virtual fizika laboratoriyalari va tajribalar.'],math:['Matematika','Vizual modellar orqali matematik tushunchalarni o‘rganing.'],programming:['Dasturlash','Algoritmlar va kodlash uchun interaktiv modul.'],modeling:['3D modellashtirish','Uch o‘lchamli modellarni o‘rganing va interaktiv sahnada sinab ko‘ring.']};
+    const chosen = titles[f] || titles.modeling;
+    document.getElementById('moduleTitle').innerHTML = chosen[0] + ' <span>moduli</span>';
+    document.getElementById('moduleDescription').textContent = chosen[1];
+  </script>
+</body></html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniLab 3D | Elektr zanjiri</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="index.html"><span class="brand-icon">⬡</span><span>UniLab <b>3D</b><small>VIRTUAL LAB SYSTEM</small></span></a>
+      <div class="side-label">LABORATORIYA</div>
+      <a class="nav-link" href="index.html">⌂ <span>Bosh sahifa</span></a>
+      <a class="nav-link active" href="experiment.html">⚡ <span>Elektr zanjiri</span></a>
+      <a class="nav-link" href="fan.html?fan=modeling">◇ <span>3D modellar</span></a>
+      <div class="sidebar-status"><span class="status-dot"></span> LABORATORIYA TAYYOR <small>Simulyatsiya rejimi</small></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar"><div class="crumb"><a href="index.html">BOSH SAHIFA</a> <span>/</span> ELEKTR ZANJIRI</div><div class="top-right"><span class="online"><i></i> SIMULYATSIYA</span></div></header>
+      <section class="page-intro"><div class="eyebrow">PHYSICS LAB / EXPERIMENT 001</div><h1>Om qonuni <span>laboratoriyasi</span></h1><p>Kuchlanish va qarshilikni o‘zgartirib, tok kuchining qanday o‘zgarishini kuzating.</p></section>
+      <section class="lab-layout">
+        <div class="panel scene-panel">
+          <div class="panel-heading"><div><span class="live-dot"></span> 3D TAJRIBA MAYDONI<h3>Elektr zanjiri modeli</h3></div><span class="tiny-tag">REAL-TIME</span></div>
+          <div id="lab3d" class="lab-canvas"><div class="canvas-hint">Sichqoncha yoki barmoq bilan aylantiring · yaqinlashtirish uchun scroll/pinch</div></div>
+          <div class="scene-legend"><span><i class="legend-red"></i> Tok yo‘nalishi</span><span><i class="legend-cyan"></i> Elektr ulanishi</span><span>◉ 3D INTERACTIVE</span></div>
+        </div>
+        <aside class="panel controls-panel">
+          <div class="panel-heading"><div><div class="eyebrow">PARAMETRLAR</div><h3>Tajriba boshqaruvi</h3></div><span class="control-icon">⚙</span></div>
+          <label class="control-label" for="voltage">Kuchlanish <b><span id="voltageValue">12.0</span> V</b></label>
+          <input id="voltage" type="range" min="0" max="24" step="0.5" value="12">
+          <div class="range-ends"><span>0 V</span><span>24 V</span></div>
+          <label class="control-label" for="resistance">Qarshilik <b><span id="resistanceValue">10</span> Ω</b></label>
+          <input id="resistance" type="range" min="1" max="100" step="1" value="10">
+          <div class="range-ends"><span>1 Ω</span><span>100 Ω</span></div>
+          <button id="runExperiment" class="btn btn-primary full-btn">▶ Tajribani hisoblash</button>
+          <div class="result-heading">O‘LCHOV NATIJALARI <span class="live-dot"></span></div>
+          <div class="result-row"><span>Kuchlanish (V)</span><b id="outVoltage">12.00 V</b></div>
+          <div class="result-row"><span>Tok kuchi (I)</span><b id="outCurrent">1.20 A</b></div>
+          <div class="result-row"><span>Qarshilik (R)</span><b id="outResistance">10.00 Ω</b></div>
+          <div class="formula">I = U / R <span id="formulaCalc">12 / 10 = 1.2 A</span></div>
+        </aside>
+      </section>
+      <section class="lower-grid">
+        <div class="panel note-panel"><div class="eyebrow">QISQACHA NAZARIYA</div><h3>Om qonuni</h3><p>Elektr zanjiridagi tok kuchi kuchlanishga to‘g‘ri, qarshilikka esa teskari proporsional.</p><div class="big-formula">I = <span>U</span> / R</div></div>
+        <div class="panel note-panel"><div class="eyebrow">KUTILAYOTGAN NATIJA</div><h3>O‘zgarishni kuzating</h3><p>Kuchlanishni oshiring yoki qarshilikni kamaytiring. Hisoblangan tok kuchi real vaqtda yangilanadi.</p><div class="status-line"><span class="status-dot"></span> MODEL FAOL</div></div>
+      </section>
+      <footer class="footer"><span>© 2026 UNILAB 3D</span><span>O‘QUV SIMULYATSIYASI · NATIJALAR NAZARIY HISOBLANADI</span><a href="index.html">← BOSH SAHIFA</a></footer>
+    </main>
+  </div>
+  <script type="module" src="experiment.js"></script>
+</body>
+</html>
